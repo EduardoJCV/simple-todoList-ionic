@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border" color="dark">
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-back-button color="success" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      {{ lista.titulo }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  
+  <ion-list color="dark">
+
+    <ion-item color="dark">
+      <ion-label position="floating">Nueva Tarea</ion-label>
+      <ion-input type="text" 
+                 [(ngModel)]="nombreTarea"
+                 (keyup.enter)="nuevaTarea()" ></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+    
+    <ion-list-header color="dark" *ngIf="lista.items.length > 0">
+      <ion-label>Tareas por hacer</ion-label>
+      <!-- <ion-button>See All</ion-button> -->
+    </ion-list-header>
+
+    <ion-item-sliding color="dark" *ngFor="let tarea of lista.items; let i = index">
+      <ion-item-options side="start">
+        <ion-item-option (click)="editarTarea(tarea)">Editar</ion-item-option>
+      </ion-item-options>
+  
+      <ion-item color="dark">
+        <ion-checkbox slot="start" color="success" [(ngModel)]="tarea.completado" (ionChange)="cambiarCheck(tarea)"></ion-checkbox>
+        <ion-label> {{ tarea.desc }} </ion-label>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger"  (click)="eliminarTarea( i )">Eliminar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>
